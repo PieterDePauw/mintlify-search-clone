@@ -35,9 +35,12 @@ export function useKeyboardNavigation({
 				e.preventDefault()
 				setSelectedIndex((prevIndex: number) => {
 					const newIndex =
-						e.key === "ArrowDown"
-							? prevIndex < resultsLength ? prevIndex + 1 : 0
-							: prevIndex > 0 ? prevIndex - 1 : resultsLength
+						e.key === "ArrowDown" ?
+							prevIndex < resultsLength ?
+								prevIndex + 1
+							:	0
+						: prevIndex > 0 ? prevIndex - 1
+						: resultsLength
 					scrollToIndex(newIndex)
 					return newIndex
 				})
@@ -50,7 +53,7 @@ export function useKeyboardNavigation({
 				}
 			}
 		},
-		[selectedIndex, resultsLength, viewState, onResultSelect, handleManualSubmit, setSelectedIndex, scrollToIndex]
+		[selectedIndex, resultsLength, viewState, onResultSelect, handleManualSubmit, setSelectedIndex, scrollToIndex],
 	)
 
 	return { handleKeyDown }
