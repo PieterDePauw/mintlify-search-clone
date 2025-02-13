@@ -3,7 +3,15 @@ import { useState, useCallback } from "react"
 import { generateAIResponse as generateAIResponseAction } from "@/app/actions"
 
 // useAIChat hook
-export function useAIChat({ query, viewState, setViewState }: { query: string; viewState: "search" | "chat"; setViewState: (state: "search" | "chat") => void }) {
+export function useAIChat({
+	query,
+	viewState,
+	setViewState,
+}: {
+	query: string
+	viewState: "search" | "chat"
+	setViewState: (state: "search" | "chat") => void
+}) {
 	const [response, setResponse] = useState<string>("")
 	const [question, setQuestion] = useState<string | null>(null)
 	const [isLoading, setIsLoading] = useState<boolean>(false)

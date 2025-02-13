@@ -7,8 +7,8 @@
 		"build": "next build",
 		"start": "next start",
 		"lint": "next lint",
-		"format": "prettier --check .",
-		"format:write": "prettier --write ."
+		"format": "pnpm dlx prettier . --check",
+		"format:write": "pnpm dlx prettier . --write"
 	},
 	"dependencies": {
 		"@ai-sdk/openai": "^1.1.10",
@@ -70,6 +70,7 @@
 		"@typescript-eslint/eslint-plugin": "^8.24.0",
 		"@typescript-eslint/parser": "^8.24.0",
 		"eslint-config-next": "^15.1.7",
+		"eslint-config-prettier": "^10.0.1",
 		"postcss": "^8.5.2",
 		"postcss-load-config": "^6.0.1",
 		"prettier": "^3.5.0",

@@ -6,7 +6,10 @@ import { documents, type InsertDocument } from "@/lib/db/schema"
 
 // Helper function to generate an embedding for a given content
 export async function generateEmbedding(content: string): Promise<number[]> {
-	const result = await embed({ model: openai.embedding("text-embedding-3-small"), value: content })
+	const result = await embed({
+		model: openai.embedding("text-embedding-3-small"),
+		value: content,
+	})
 	return result.embedding
 }
 

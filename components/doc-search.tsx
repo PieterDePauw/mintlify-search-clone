@@ -1,13 +1,38 @@
 "use client"
 
 // Import modules
-import React, { useRef, useState, type Dispatch, type RefObject, type SetStateAction, type KeyboardEvent } from "react"
+import React, {
+	useRef,
+	useState,
+	type Dispatch,
+	type RefObject,
+	type SetStateAction,
+	type KeyboardEvent,
+} from "react"
 import crypto from "crypto"
 import { useTheme } from "next-themes"
-import { SearchIcon, CommandIcon, ArrowLeftIcon, ChevronRightIcon, SparklesIcon, AlertCircleIcon, CheckCircle2Icon, FileTextIcon, Share2Icon, ThumbsDownIcon, ThumbsUpIcon } from "lucide-react"
+import {
+	SearchIcon,
+	CommandIcon,
+	ArrowLeftIcon,
+	ChevronRightIcon,
+	SparklesIcon,
+	AlertCircleIcon,
+	CheckCircle2Icon,
+	FileTextIcon,
+	Share2Icon,
+	ThumbsDownIcon,
+	ThumbsUpIcon,
+} from "lucide-react"
 import { Button } from "@/components/ui/button"
 import { Dialog, DialogContent, DialogHeader, DialogFooter } from "@/components/ui/dialog"
-import { useSearch, useAIChat, useKeyboardNavigation, useKeyboardShortcut, useFocusOnInputOpen } from "@/hooks"
+import {
+	useSearch,
+	useAIChat,
+	useKeyboardNavigation,
+	useKeyboardShortcut,
+	useFocusOnInputOpen,
+} from "@/hooks"
 // import { useSearch } from "@/hooks/use-search"
 // import { useAIChat } from "@/hooks/use-ai-chat"
 // import { useKeyboardShortcut, useKeyboardNavigation } from "@/hooks/use-keyboard-navigation"
@@ -104,27 +129,44 @@ export function AIChatResponse({
 
 	// > Return the JSX for the AI chat response
 	return (
-		<div className={cn("border-b p-4", theme === "dark" ? "border-zinc-700/40" : "border-zinc-200")}>
+		<div
+			className={cn(
+				"border-b p-4",
+				theme === "dark" ? "border-zinc-700/40" : "border-zinc-200",
+			)}
+		>
 			<div className="flex items-start gap-4">
 				{getIcon({ isLoading, error })}
 				<div className="flex-1">
-					<div className={cn("mb-4 font-medium", theme === "dark" ? "text-zinc-200" : "text-zinc-900")}>{question}</div>
+					<div
+						className={cn(
+							"mb-4 font-medium",
+							theme === "dark" ? "text-zinc-200" : "text-zinc-900",
+						)}
+					>
+						{question}
+					</div>
 					{isLoading ?
 						<>
-							<div className="prose prose-sm dark:prose-invert mb-4 whitespace-pre-wrap">{response}</div>
+							<div className="prose prose-sm dark:prose-invert mb-4 whitespace-pre-wrap">
+								{response}
+							</div>
 							<div className="inline-block h-4 w-2 animate-pulse bg-blue-500" />
 						</>
 					: error ?
 						<div className="text-red-500">{error}</div>
 					:	<>
-							<div className="prose prose-sm dark:prose-invert mb-4 whitespace-pre-wrap">{response}</div>
+							<div className="prose prose-sm dark:prose-invert mb-4 whitespace-pre-wrap">
+								{response}
+							</div>
 							{sources && (
 								<div className="mt-4 border-t pt-4 dark:border-zinc-700/40">
 									<h4 className="mb-2 text-sm font-semibold">Sources:</h4>
 									<ul className="list-none pl-0 text-sm text-zinc-600 dark:text-zinc-400">
 										{sources.map((source) => (
 											<li key={source.id} className="mb-1 flex items-center">
-												<FileTextIcon className="mr-2 h-4 w-4" /> {source.title}
+												<FileTextIcon className="mr-2 h-4 w-4" />{" "}
+												{source.title}
 											</li>
 										))}
 									</ul>
@@ -132,14 +174,26 @@ export function AIChatResponse({
 							)}
 							<div className="mt-4 flex items-center justify-between border-t pt-4 dark:border-zinc-700/40">
 								<div className="flex gap-2">
-									<Button variant="outline" size="sm" className="transition-all duration-200">
+									<Button
+										variant="outline"
+										size="sm"
+										className="transition-all duration-200"
+									>
 										<ThumbsUpIcon className="mr-1 h-4 w-4" /> Helpful
 									</Button>
-									<Button variant="outline" size="sm" className="transition-all duration-200">
+									<Button
+										variant="outline"
+										size="sm"
+										className="transition-all duration-200"
+									>
 										<ThumbsDownIcon className="mr-1 h-4 w-4" /> Not helpful
 									</Button>
 								</div>
-								<Button variant="outline" size="sm" className="transition-all duration-200">
+								<Button
+									variant="outline"
+									size="sm"
+									className="transition-all duration-200"
+								>
 									<Share2Icon className="mr-1 h-4 w-4" /> Share
 								</Button>
 							</div>
@@ -191,7 +245,9 @@ export function SearchInputField({
 			<input
 				ref={inputRef}
 				className="flex-1 bg-transparent text-zinc-700 outline-none transition-colors duration-200 placeholder:text-zinc-500 dark:text-zinc-200"
-				placeholder={viewState === "chat" ? "Ask a follow-up question..." : "Search documentation..."}
+				placeholder={
+					viewState === "chat" ? "Ask a follow-up question..." : "Search documentation..."
+				}
 				value={query}
 				onChange={(e) => setQuery(e.target.value)}
 				onKeyDown={handleInputKeyDown}
@@ -203,7 +259,11 @@ export function SearchInputField({
 // SearchTriggerButton component
 function SearchTriggerButton({ setOpen }: { setOpen: (value: boolean) => void }) {
 	return (
-		<Button onClick={() => setOpen(true)} variant="outline" className="group relative w-full justify-start text-sm text-muted-foreground transition-all duration-300 hover:bg-accent sm:pr-12 md:w-40 lg:w-64">
+		<Button
+			onClick={() => setOpen(true)}
+			variant="outline"
+			className="group relative w-full justify-start text-sm text-muted-foreground transition-all duration-300 hover:bg-accent sm:pr-12 md:w-40 lg:w-64"
+		>
 			<SearchIcon className="mr-2 h-4 w-4 transition-transform group-hover:scale-110" />
 			<span className="hidden lg:inline-flex">Search documentation</span>
 			<span className="inline-flex lg:hidden">Search...</span>
@@ -216,7 +276,15 @@ function SearchTriggerButton({ setOpen }: { setOpen: (value: boolean) => void })
 }
 
 // AskAIOption component
-function AskAIOption({ query, isSelected, onClick }: { query: string; isSelected: boolean; onClick: () => void }) {
+function AskAIOption({
+	query,
+	isSelected,
+	onClick,
+}: {
+	query: string
+	isSelected: boolean
+	onClick: () => void
+}) {
 	// > Use the useTheme hook to get the current theme
 	const { theme } = useTheme()
 
@@ -233,10 +301,17 @@ function AskAIOption({ query, isSelected, onClick }: { query: string; isSelected
 		>
 			<SparklesIcon className="h-5 w-5 flex-shrink-0 text-blue-500" />
 			<div className="flex-1">
-				<div className={cn("font-medium", theme === "dark" ? "text-zinc-200" : "text-zinc-900")}>
+				<div
+					className={cn(
+						"font-medium",
+						theme === "dark" ? "text-zinc-200" : "text-zinc-900",
+					)}
+				>
 					Can you tell me about <span className="text-blue-500">{query}</span>?
 				</div>
-				<div className="text-sm text-zinc-500 dark:text-zinc-400">Use AI to answer your question</div>
+				<div className="text-sm text-zinc-500 dark:text-zinc-400">
+					Use AI to answer your question
+				</div>
 			</div>
 			<ChevronRightIcon className="h-5 w-5 flex-shrink-0 text-zinc-400 transition-transform duration-200 group-hover:translate-x-1" />
 		</div>
@@ -244,7 +319,12 @@ function AskAIOption({ query, isSelected, onClick }: { query: string; isSelected
 }
 
 // SearchResultsList component
-export function SearchResultsList({ query, results, selectedIndex, onResultSelect }: SearchResultsListProps) {
+export function SearchResultsList({
+	query,
+	results,
+	selectedIndex,
+	onResultSelect,
+}: SearchResultsListProps) {
 	// > Use the useTheme hook to get the current theme
 	const { theme } = useTheme()
 
@@ -256,7 +336,13 @@ export function SearchResultsList({ query, results, selectedIndex, onResultSelec
 	// > Return the JSX for the search results list
 	return (
 		<>
-			{query && <AskAIOption query={query} isSelected={selectedIndex === results.length} onClick={() => onResultSelect(results.length)} />}
+			{query && (
+				<AskAIOption
+					query={query}
+					isSelected={selectedIndex === results.length}
+					onClick={() => onResultSelect(results.length)}
+				/>
+			)}
 			{results.map((result, index) => (
 				<div
 					key={index}
@@ -271,19 +357,39 @@ export function SearchResultsList({ query, results, selectedIndex, onResultSelec
 				>
 					<div className="mb-2 flex items-center gap-2 text-sm text-zinc-500 dark:text-zinc-400">
 						{result.method && methods.includes(result.method) ?
-							<span className={cn("inline-flex items-center justify-center rounded-md px-1.5 py-0.5 text-[11px] font-medium", METHOD_STYLES[result.method])}>{result.method}</span>
+							<span
+								className={cn(
+									"inline-flex items-center justify-center rounded-md px-1.5 py-0.5 text-[11px] font-medium",
+									METHOD_STYLES[result.method],
+								)}
+							>
+								{result.method}
+							</span>
 						:	null}
 						<span className="flex items-center text-xs">
 							{splitPath(result.path).map((part, idx) => (
 								<span key={idx} className="flex items-center">
-									<span className="transition-colors duration-200 hover:text-zinc-700 dark:hover:text-zinc-300">{part}</span>
-									{idx < splitPath(result.path).length - 1 && <ChevronRightIcon className="mx-1 h-3 w-3 text-zinc-400" />}
+									<span className="transition-colors duration-200 hover:text-zinc-700 dark:hover:text-zinc-300">
+										{part}
+									</span>
+									{idx < splitPath(result.path).length - 1 && (
+										<ChevronRightIcon className="mx-1 h-3 w-3 text-zinc-400" />
+									)}
 								</span>
 							))}
 						</span>
 					</div>
-					<div className={cn("mb-1 font-medium", theme === "dark" ? "text-zinc-200" : "text-zinc-900")}>{renderHighlightedText(result.highlightedTitle)}</div>
-					<div className="line-clamp-2 text-sm text-zinc-500 dark:text-zinc-400">{renderHighlightedText(result.highlightedContent)}</div>
+					<div
+						className={cn(
+							"mb-1 font-medium",
+							theme === "dark" ? "text-zinc-200" : "text-zinc-900",
+						)}
+					>
+						{renderHighlightedText(result.highlightedTitle)}
+					</div>
+					<div className="line-clamp-2 text-sm text-zinc-500 dark:text-zinc-400">
+						{renderHighlightedText(result.highlightedContent)}
+					</div>
 				</div>
 			))}
 		</>
@@ -291,7 +397,19 @@ export function SearchResultsList({ query, results, selectedIndex, onResultSelec
 }
 
 // SearchModal component
-function SearchModal({ open, setOpen, inputRef, viewState, query, setQuery, handleBack, handleKeyDown, handleManualSubmit, searchProps, aiProps }: SearchModalProps) {
+function SearchModal({
+	open,
+	setOpen,
+	inputRef,
+	viewState,
+	query,
+	setQuery,
+	handleBack,
+	handleKeyDown,
+	handleManualSubmit,
+	searchProps,
+	aiProps,
+}: SearchModalProps) {
 	// > Use the useTheme hook to get the current theme
 	const { theme } = useTheme()
 
@@ -306,13 +424,27 @@ function SearchModal({ open, setOpen, inputRef, viewState, query, setQuery, hand
 				className={cn(
 					"overflow-hidden rounded-xl border p-0 shadow-2xl sm:max-w-[750px]",
 					"transition-all duration-300 ease-in-out",
-					theme === "dark" ? "border-zinc-700/40 bg-zinc-900" : "border-zinc-200 bg-white",
+					theme === "dark" ?
+						"border-zinc-700/40 bg-zinc-900"
+					:	"border-zinc-200 bg-white",
 				)}
 				title={viewState === "chat" ? "AI Chat" : "Search Documentation"}
-				description={viewState === "chat" ? "Ask follow-up questions or get AI-powered answers" : "Search through the documentation or ask AI for help"}
+				description={
+					viewState === "chat" ?
+						"Ask follow-up questions or get AI-powered answers"
+					:	"Search through the documentation or ask AI for help"
+				}
 			>
 				<DialogHeader className="border-b border-zinc-200 p-3 dark:border-zinc-700/40">
-					<SearchInputField viewState={viewState} query={query} setQuery={setQuery} goBack={handleBack} onKeyDown={handleKeyDown} inputRef={inputRef} submitChatQuery={handleManualSubmit} />
+					<SearchInputField
+						viewState={viewState}
+						query={query}
+						setQuery={setQuery}
+						goBack={handleBack}
+						onKeyDown={handleKeyDown}
+						inputRef={inputRef}
+						submitChatQuery={handleManualSubmit}
+					/>
 				</DialogHeader>
 
 				<div
@@ -325,11 +457,28 @@ function SearchModal({ open, setOpen, inputRef, viewState, query, setQuery, hand
 						<>
 							{error ?
 								<div className="p-4 text-red-500">{error}</div>
-							:	<SearchResultsList query={query} results={results} selectedIndex={selectedIndex} onResultSelect={onResultSelect} onAskAI={() => onAskAI} error={error} isLoading={isAILoading} />}
+							:	<SearchResultsList
+									query={query}
+									results={results}
+									selectedIndex={selectedIndex}
+									onResultSelect={onResultSelect}
+									onAskAI={() => onAskAI}
+									error={error}
+									isLoading={isAILoading}
+								/>
+							}
 						</>
 					)}
 
-					{viewState === "chat" && <AIChatResponse question={question} response={response} isLoading={isAILoading} error={aiError} sources={sources} />}
+					{viewState === "chat" && (
+						<AIChatResponse
+							question={question}
+							response={response}
+							isLoading={isAILoading}
+							error={aiError}
+							sources={sources}
+						/>
+					)}
 				</div>
 
 				<DialogFooter className="flex flex-row items-center justify-between border-t border-zinc-200 p-2 text-xs text-zinc-500 dark:border-zinc-700/40 dark:text-zinc-400">
@@ -356,10 +505,28 @@ export function DocumentationSearch() {
 	const inputRef = useRef<HTMLInputElement>(null)
 
 	// > Use the useSearch hook to get the search state
-	const { query, setQuery, viewState, setViewState, isSearchLoading, results, selectedIndex, setSelectedIndex, error: searchError } = useSearch()
+	const {
+		query,
+		setQuery,
+		viewState,
+		setViewState,
+		isSearchLoading,
+		results,
+		selectedIndex,
+		setSelectedIndex,
+		error: searchError,
+	} = useSearch()
 
 	// > Use the useAIChat hook to get the AI chat state
-	const { response, question, isLoading: isAILoading, error: aiError, sources, handleBack, generateAIResponse } = useAIChat({ query, viewState, setViewState })
+	const {
+		response,
+		question,
+		isLoading: isAILoading,
+		error: aiError,
+		sources,
+		handleBack,
+		generateAIResponse,
+	} = useAIChat({ query, viewState, setViewState })
 
 	// > Define a function to submit the chat query (i.e. when a user presses Enter or clicks the submit button)
 	function submitChatQuery() {
@@ -385,7 +552,14 @@ export function DocumentationSearch() {
 	}
 
 	// > Use the useKeyboardNavigation hook to handle keyboard navigation
-	const { handleKeyDown } = useKeyboardNavigation({ selectedIndex, setSelectedIndex, resultsLength: results.length, viewState, onResultSelect: onResultSelect, handleManualSubmit: submitChatQuery })
+	const { handleKeyDown } = useKeyboardNavigation({
+		selectedIndex,
+		setSelectedIndex,
+		resultsLength: results.length,
+		viewState,
+		onResultSelect: onResultSelect,
+		handleManualSubmit: submitChatQuery,
+	})
 
 	// > Use the useKeyboardShortcut hook to handle keyboard shortcuts
 	useKeyboardShortcut({ key: "k", callbackFn: () => setOpen((open) => !open) })
@@ -394,7 +568,15 @@ export function DocumentationSearch() {
 	useFocusOnInputOpen(open, inputRef)
 
 	// > Define the search results state
-	const searchResultsState = { results: results, selectedIndex: selectedIndex, error: searchError, isLoading: isSearchLoading, onResultSelect: onResultSelect, query: query, onAskAI: () => setViewState("chat") }
+	const searchResultsState = {
+		results: results,
+		selectedIndex: selectedIndex,
+		error: searchError,
+		isLoading: isSearchLoading,
+		onResultSelect: onResultSelect,
+		query: query,
+		onAskAI: () => setViewState("chat"),
+	}
 
 	// > Define the AI chat response state
 	const aiChatResponseProps = {
@@ -402,7 +584,10 @@ export function DocumentationSearch() {
 		question: question,
 		isLoading: isAILoading,
 		error: aiError,
-		sources: sources.map((source) => ({ id: crypto.createHash("sha256").update(source).digest("base64"), title: source })),
+		sources: sources.map((source) => ({
+			id: crypto.createHash("sha256").update(source).digest("base64"),
+			title: source,
+		})),
 	}
 
 	// > Return the JSX for the DocumentationSearch component

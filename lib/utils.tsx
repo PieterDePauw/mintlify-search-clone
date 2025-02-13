@@ -21,7 +21,9 @@ export function escapeRegex(str: string): string {
  * Calculates the Levenshtein distance between two strings.
  */
 function levenshteinDistance(a: string, b: string): number {
-	const matrix = Array.from({ length: b.length + 1 }, (_, j) => Array(a.length + 1).fill(j === 0 ? 0 : j))
+	const matrix = Array.from({ length: b.length + 1 }, (_, j) =>
+		Array(a.length + 1).fill(j === 0 ? 0 : j),
+	)
 
 	for (let i = 0; i <= a.length; i++) {
 		matrix[0][i] = i
@@ -79,8 +81,14 @@ export function markdownToPlainText(text: string): string {
 		.replace(/__([^_]*)__/g, "$1")
 		.replace(/\*([^*]*)\*/g, "$1")
 		.replace(/_([^_]*)_/g, "$1")
-		.replace(/$begin:math:display$([^$end:math:display$]+)\]$begin:math:text$[^)]+$end:math:text$/g, "$1")
-		.replace(/!$begin:math:display$([^$end:math:display$]+)\]$begin:math:text$[^)]+$end:math:text$/g, "$1")
+		.replace(
+			/$begin:math:display$([^$end:math:display$]+)\]$begin:math:text$[^)]+$end:math:text$/g,
+			"$1",
+		)
+		.replace(
+			/!$begin:math:display$([^$end:math:display$]+)\]$begin:math:text$[^)]+$end:math:text$/g,
+			"$1",
+		)
 		.replace(/^\s*>\s+/gm, "")
 		.replace(/^\s*[-*+]\s+/gm, "")
 		.replace(/^\s*\d+\.\s+/gm, "")

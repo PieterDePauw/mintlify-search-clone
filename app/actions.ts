@@ -11,7 +11,9 @@ import { type SearchResultType } from "@/components/doc-search"
  * Calculates TF-IDF score for a term in a document.
  */
 function calculateTfIdf(term: string, doc: string, allDocs: string[]): number {
-	const exactMatches = (doc.toLowerCase().match(new RegExp(`\\b${escapeRegex(term.toLowerCase())}\\b`, "g")) || []).length
+	const exactMatches = (
+		doc.toLowerCase().match(new RegExp(`\\b${escapeRegex(term.toLowerCase())}\\b`, "g")) || []
+	).length
 	const fuzzyMatches = allDocs.filter((d) => fuzzyMatch(term, d) > 0.8).length - exactMatches
 	const tf = exactMatches + fuzzyMatches * 0.5 // Fuzzy matches count for half
 	const idf = Math.log((allDocs.length + 1) / (fuzzyMatches + exactMatches + 1)) + 1
@@ -53,7 +55,10 @@ function highlightMatches(text: string, tokens: string[]): string {
 	let highlighted = text
 	tokens.forEach((token) => {
 		const exactRegex = new RegExp(`\\b${escapeRegex(token)}\\b`, "gi")
-		highlighted = highlighted.replace(exactRegex, (match) => `<mark class="exact-match">${match}</mark>`)
+		highlighted = highlighted.replace(
+			exactRegex,
+			(match) => `<mark class="exact-match">${match}</mark>`,
+		)
 
 		const words = highlighted.split(/\s+/)
 		const highlightedWords = words.map((word) => {
@@ -86,7 +91,11 @@ function findMostRelevantSnippet(content: string, tokens: string[], snippetLengt
 
 	const start = Math.max(0, bestIndex - 5)
 	const end = Math.min(words.length, start + Math.ceil(snippetLength / 5))
-	return (start > 0 ? "..." : "") + words.slice(start, end).join(" ") + (end < words.length ? "..." : "")
+	return (
+		(start > 0 ? "..." : "") +
+		words.slice(start, end).join(" ") +
+		(end < words.length ? "..." : "")
+	)
 }
 
 /**
@@ -116,13 +125,21 @@ export async function searchDocumentation(query: string): Promise<SearchResultTy
 			const titleScore = tokens.reduce((score, token) => {
 				const exactMatch = plainTitle.toLowerCase().includes(token.toLowerCase()) ? 2 : 0
 				const fuzzyMatchScore = fuzzyMatch(token, plainTitle) > 0.8 ? 1 : 0
-				return score + calculateTfIdf(token, plainTitle, allContent) * (exactMatch || fuzzyMatchScore)
+				return (
+					score +
+					calculateTfIdf(token, plainTitle, allContent) * (exactMatch || fuzzyMatchScore)
+				)
 			}, 0)
 
 			const contentScore = tokens.reduce((score, token) => {
-				const exactMatch = relevantSnippet.toLowerCase().includes(token.toLowerCase()) ? 2 : 0
+				const exactMatch =
+					relevantSnippet.toLowerCase().includes(token.toLowerCase()) ? 2 : 0
 				const fuzzyMatchScore = fuzzyMatch(token, relevantSnippet) > 0.8 ? 1 : 0
-				return score + calculateTfIdf(token, relevantSnippet, allContent) * (exactMatch || fuzzyMatchScore)
+				return (
+					score +
+					calculateTfIdf(token, relevantSnippet, allContent) *
+						(exactMatch || fuzzyMatchScore)
+				)
 			}, 0)
 
 			const proximityScore = calculateProximityScore(relevantSnippet, query) * 5 // Adjust weight as needed
@@ -147,7 +164,9 @@ export async function searchDocumentation(query: string): Promise<SearchResultTy
 
 		// Filter out results with very low scores
 		const threshold = 0.01 // Adjust this value as needed
-		return results.filter((result) => result.score > threshold).sort((a, b) => b.score - a.score)
+		return results
+			.filter((result) => result.score > threshold)
+			.sort((a, b) => b.score - a.score)
 	} catch (error) {
 		console.error("Search failed:", error)
 		if (error instanceof Error) {
@@ -162,21 +181,23 @@ export async function searchDocumentation(query: string): Promise<SearchResultTy
  * Calls an AI model to provide a documentation-related answer to the user query.
  */
 export async function generateAIResponse(query: string) {
-    // > Check if the query is empty
+	// > Check if the query is empty
 	if (!query?.trim()) {
 		console.error("No query was set")
 		return { error: "Please provide a question to answer." }
 	}
 
-    // > Check if the OpenAI API key is set
+	// > Check if the OpenAI API key is set
 	if (!process.env.OPENAI_API_KEY) {
 		console.error("OPENAI_API_KEY environment variable is not accessible")
-		return { error: "OpenAI API key is not found. Please set the OPENAI_API_KEY environment variable." }
+		return {
+			error: "OpenAI API key is not found. Please set the OPENAI_API_KEY environment variable.",
+		}
 	}
 
-    // > Call the OpenAI API to generate a response
-    try {
-        // >> Create a stream to generate the AI response
+	// > Call the OpenAI API to generate a response
+	try {
+		// >> Create a stream to generate the AI response
 		const stream = streamText({
 			model: openai("gpt-4o"),
 			prompt: `Answer the following documentation-related question: ${query}`,
@@ -185,12 +206,12 @@ export async function generateAIResponse(query: string) {
 			temperature: 0.7,
 		})
 
-        // >> Return the AI response as a data stream
+		// >> Return the AI response as a data stream
 		return stream.toDataStream()
-    } catch (error) {
-        // >> Handle any errors that occur during the AI response generation
-        console.error("AI response generation failed:", error)
-        // >> Return an error message if the AI response generation fails
+	} catch (error) {
+		// >> Handle any errors that occur during the AI response generation
+		console.error("AI response generation failed:", error)
+		// >> Return an error message if the AI response generation fails
 		return { error: "Failed to generate AI response. Please try again later." }
 	}
 }

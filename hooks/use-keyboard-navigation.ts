@@ -53,7 +53,15 @@ export function useKeyboardNavigation({
 				}
 			}
 		},
-		[selectedIndex, resultsLength, viewState, onResultSelect, handleManualSubmit, setSelectedIndex, scrollToIndex],
+		[
+			selectedIndex,
+			resultsLength,
+			viewState,
+			onResultSelect,
+			handleManualSubmit,
+			setSelectedIndex,
+			scrollToIndex,
+		],
 	)
 
 	return { handleKeyDown }

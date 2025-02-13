@@ -18,7 +18,12 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
 	return (
 		<html lang="en" suppressHydrationWarning={true}>
 			<body className={inter.className}>
-				<Providers attribute="class" defaultTheme="dark" enableSystem={true} disableTransitionOnChange={true}>
+				<Providers
+					attribute="class"
+					defaultTheme="dark"
+					enableSystem={true}
+					disableTransitionOnChange={true}
+				>
 					{children}
 				</Providers>
 			</body>

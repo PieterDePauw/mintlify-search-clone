@@ -6,7 +6,7 @@
 	"experimentalTernaries": true,
 	"jsxSingleQuote": false,
 	"plugins": ["prettier-plugin-tailwindcss", "prettier-plugin-packagejson"],
-	"printWidth": 220,
+	"printWidth": 100,
 	"proseWrap": "preserve",
 	"quoteProps": "preserve",
 	"semi": false,
