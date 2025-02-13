@@ -1,9 +1,11 @@
 "use client"
 
+// Import modules
 import { useTheme } from "next-themes"
 import { MoonIcon, SunIcon } from "lucide-react"
 import { Button } from "@/components/ui/button"
 
+// ModeToggle component
 export function ModeToggle() {
 	const { theme, setTheme } = useTheme()
 	const handleTheme = () => setTheme(theme === "light" ? "dark" : "light")
