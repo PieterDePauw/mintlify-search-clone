@@ -9,7 +9,7 @@ import { Button } from "@/components/ui/button"
 import { Dialog, DialogContent, DialogHeader, DialogFooter } from "@/components/ui/dialog"
 import { useSearch } from "@/hooks/use-search"
 import { useAIChat } from "@/hooks/use-ai-chat"
-import { useKeyboardShortcut, useKeyboardNavigation } from "@/hooks/use-keyboard"
+import { useKeyboardShortcut, useKeyboardNavigation } from "@/hooks/use-keyboard-navigation"
 import { useFocusOnInputOpen } from "@/hooks/use-focus-on-input-open"
 import { cn, renderHighlightedText } from "@/lib/utils"
 
