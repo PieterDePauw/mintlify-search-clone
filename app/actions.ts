@@ -162,21 +162,21 @@ export async function searchDocumentation(query: string): Promise<SearchResultTy
  * Calls an AI model to provide a documentation-related answer to the user query.
  */
 export async function generateAIResponse(query: string) {
+    // > Check if the query is empty
 	if (!query?.trim()) {
 		console.error("No query was set")
 		return { error: "Please provide a question to answer." }
 	}
 
-	const apiKey = process.env.OPENAI_API_KEY
-
-	if (!apiKey) {
+    // > Check if the OpenAI API key is set
+	if (!process.env.OPENAI_API_KEY) {
 		console.error("OPENAI_API_KEY environment variable is not accessible")
-		return {
-			error: "OpenAI API key is not configured. Please set the OPENAI_API_KEY environment variable.",
-		}
+		return { error: "OpenAI API key is not found. Please set the OPENAI_API_KEY environment variable." }
 	}
 
-	try {
+    // > Call the OpenAI API to generate a response
+    try {
+        // >> Create a stream to generate the AI response
 		const stream = streamText({
 			model: openai("gpt-4o"),
 			prompt: `Answer the following documentation-related question: ${query}`,
@@ -185,9 +185,12 @@ export async function generateAIResponse(query: string) {
 			temperature: 0.7,
 		})
 
+        // >> Return the AI response as a data stream
 		return stream.toDataStream()
-	} catch (error) {
-		console.error("AI response generation failed:", error)
+    } catch (error) {
+        // >> Handle any errors that occur during the AI response generation
+        console.error("AI response generation failed:", error)
+        // >> Return an error message if the AI response generation fails
 		return { error: "Failed to generate AI response. Please try again later." }
 	}
 }
