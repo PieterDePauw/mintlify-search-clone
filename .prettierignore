@@ -1,0 +1,54 @@
+# next
+.next/
+
+# vercel
+.vercel/
+
+# history
+.history/
+
+# deprecated
+.deprecated/
+
+# experimental
+.experimental
+
+# dependencies
+/node_modules
+
+# package manager files
+package-lock.json
+yarn.lock
+pnpm-lock.yaml
+
+# eslint
+.eslintcache
+.eslintignore
+.eslintrc
+.eslintrc.json
+
+# shadcn ui components
+/components/ui
+/components/ui/**/*
+
+# migrations
+db/migrations
+
+# schemas
+/db/schema
+/db/schema/
+/db/schema/*
+/db/schema/*.ts
+/db/schema/**/*
+
+# prisma
+/prisma
+
+# shadcn ui components
+components.json
+
+# prettier
+#.prettierrc
+
+# .github
+.github/

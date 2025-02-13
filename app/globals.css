@@ -1,0 +1,304 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+	:root {
+		--background: 0 0% 100%;
+		--foreground: 240 10% 3.9%;
+		--card: 0 0% 100%;
+		--card-foreground: 240 10% 3.9%;
+		--popover: 0 0% 100%;
+		--popover-foreground: 240 10% 3.9%;
+		--primary: 240 5.9% 10%;
+		--primary-foreground: 0 0% 98%;
+		--secondary: 240 4.8% 95.9%;
+		--secondary-foreground: 240 5.9% 10%;
+		--muted: 240 4.8% 95.9%;
+		--muted-foreground: 240 3.8% 46.1%;
+		--accent: 240 4.8% 95.9%;
+		--accent-foreground: 240 5.9% 10%;
+		--destructive: 0 84.2% 60.2%;
+		--destructive-foreground: 0 0% 98%;
+		--border: 240 5.9% 90%;
+		--input: 240 5.9% 90%;
+		--ring: 240 10% 3.9%;
+		--radius: 0.5rem;
+	}
+
+	.dark {
+		--background: 240 10% 3.9%;
+		--foreground: 0 0% 98%;
+		--card: 240 10% 3.9%;
+		--card-foreground: 0 0% 98%;
+		--popover: 240 10% 3.9%;
+		--popover-foreground: 0 0% 98%;
+		--primary: 0 0% 98%;
+		--primary-foreground: 240 5.9% 10%;
+		--secondary: 240 3.7% 15.9%;
+		--secondary-foreground: 0 0% 98%;
+		--muted: 240 3.7% 15.9%;
+		--muted-foreground: 240 5% 64.9%;
+		--accent: 240 3.7% 15.9%;
+		--accent-foreground: 0 0% 98%;
+		--destructive: 0 62.8% 30.6%;
+		--destructive-foreground: 0 0% 98%;
+		--border: 240 3.7% 15.9%;
+		--input: 240 3.7% 15.9%;
+		--ring: 240 4.9% 83.9%;
+	}
+}
+
+@layer base {
+	* {
+		@apply border-border;
+	}
+	body {
+		@apply bg-background text-foreground;
+	}
+}
+
+mark.exact-match {
+	background-color: rgba(255, 255, 0, 0.4);
+	font-weight: 700;
+}
+
+mark.fuzzy-match {
+	background-color: rgba(255, 255, 0, 0.2);
+	font-weight: 500;
+}
+
+.dark mark.exact-match {
+	background-color: rgba(255, 255, 0, 0.2);
+	color: #60a5fa;
+	font-weight: 700;
+}
+
+.dark mark.fuzzy-match {
+	background-color: rgba(255, 255, 0, 0.1);
+	color: #93c5fd;
+	font-weight: 500;
+}
+
+.dark mark {
+	background: transparent;
+	color: #60a5fa;
+	font-weight: 700;
+}
+
+mark {
+	background: transparent;
+	color: #3b82f6;
+	font-weight: 700;
+}
+
+/* Scrollbar styles */
+::-webkit-scrollbar {
+	width: 6px;
+}
+
+::-webkit-scrollbar-track {
+	background: transparent;
+}
+
+::-webkit-scrollbar-thumb {
+	background: rgba(0, 0, 0, 0.2);
+	border-radius: 3px;
+}
+
+.dark ::-webkit-scrollbar-thumb {
+	background: rgba(255, 255, 255, 0.2);
+}
+
+::-webkit-scrollbar-thumb:hover {
+	background: rgba(0, 0, 0, 0.3);
+}
+
+.dark ::-webkit-scrollbar-thumb:hover {
+	background: rgba(255, 255, 255, 0.3);
+}
+
+/* Blinking cursor animation */
+@keyframes blink {
+	0% {
+		opacity: 0;
+	}
+	50% {
+		opacity: 1;
+	}
+	100% {
+		opacity: 0;
+	}
+}
+
+.blinking-cursor {
+	animation: blink 1s infinite;
+}
+
+/* Prose styles for AI responses */
+.prose {
+	@apply text-sm leading-normal;
+}
+
+.prose p {
+	@apply mb-4;
+}
+
+.prose ul,
+.prose ol {
+	@apply mb-4 pl-5;
+}
+
+.prose li {
+	@apply mb-2;
+}
+
+.prose code {
+	@apply rounded bg-zinc-100 px-1 py-0.5 font-mono text-sm dark:bg-zinc-800;
+}
+
+/* Custom scrollbar styles */
+.scrollbar-thin::-webkit-scrollbar {
+	width: 6px;
+}
+
+.scrollbar-thin::-webkit-scrollbar-track {
+	background: transparent;
+}
+
+.scrollbar-thin::-webkit-scrollbar-thumb {
+	background-color: rgba(0, 0, 0, 0.2);
+	border-radius: 3px;
+}
+
+.dark .scrollbar-thin::-webkit-scrollbar-thumb {
+	background-color: rgba(255, 255, 255, 0.2);
+}
+
+/* Animations */
+@keyframes fadeIn {
+	from {
+		opacity: 0;
+	}
+	to {
+		opacity: 1;
+	}
+}
+
+.animate-fadeIn {
+	animation: fadeIn 0.2s ease-in-out;
+}
+
+@keyframes slideInFromTop {
+	from {
+		transform: translateY(-10px);
+		opacity: 0;
+	}
+	to {
+		transform: translateY(0);
+		opacity: 1;
+	}
+}
+
+.animate-slideIn {
+	animation: slideInFromTop 0.2s ease-out;
+}
+
+/* New delightful animations */
+@keyframes pulse {
+	0%,
+	100% {
+		opacity: 1;
+	}
+	50% {
+		opacity: 0.5;
+	}
+}
+
+.animate-pulse {
+	animation: pulse 2s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+}
+
+@keyframes bounce {
+	0%,
+	100% {
+		transform: translateY(-25%);
+		animation-timing-function: cubic-bezier(0.8, 0, 1, 1);
+	}
+	50% {
+		transform: translateY(0);
+		animation-timing-function: cubic-bezier(0, 0, 0.2, 1);
+	}
+}
+
+.animate-bounce {
+	animation: bounce 1s infinite;
+}
+
+/* Improved focus styles */
+*:focus-visible {
+	outline: 2px solid var(--ring);
+	outline-offset: 2px;
+}
+
+/* Transition improvements */
+.transition-all {
+	transition-property: all;
+	transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+	transition-duration: 150ms;
+}
+
+.transition-transform {
+	transition-property: transform;
+	transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+	transition-duration: 150ms;
+}
+
+.transition-opacity {
+	transition-property: opacity;
+	transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+	transition-duration: 150ms;
+}
+
+/* Improved hover effects */
+.hover\:shadow-lg:hover {
+	--tw-shadow: 0 10px 15px -3px rgb(0 0 0 / 0.1), 0 4px 6px -4px rgb(0 0 0 / 0.1);
+	--tw-shadow-colored: 0 10px 15px -3px var(--tw-shadow-color), 0 4px 6px -4px var(--tw-shadow-color);
+	box-shadow: var(--tw-ring-offset-shadow, 0 0 #0000), var(--tw-ring-shadow, 0 0 #0000), var(--tw-shadow);
+}
+
+.hover\:scale-105:hover {
+	--tw-scale-x: 1.05;
+	--tw-scale-y: 1.05;
+	transform: translate(var(--tw-translate-x), var(--tw-translate-y)) rotate(var(--tw-rotate)) skewX(var(--tw-skew-x)) skewY(var(--tw-skew-y)) scaleX(var(--tw-scale-x)) scaleY(var(--tw-scale-y));
+}
+
+/* New animations */
+@keyframes glow {
+	0%,
+	100% {
+		box-shadow: 0 0 5px rgba(66, 153, 225, 0.5);
+	}
+	50% {
+		box-shadow: 0 0 20px rgba(66, 153, 225, 0.8);
+	}
+}
+
+.animate-glow {
+	animation: glow 2s ease-in-out infinite;
+}
+
+@keyframes shimmer {
+	0% {
+		background-position: -1000px 0;
+	}
+	100% {
+		background-position: 1000px 0;
+	}
+}
+
+.animate-shimmer {
+	background: linear-gradient(to right, #f6f7f8 8%, #edeef1 18%, #f6f7f8 33%);
+	background-size: 1000px 100%;
+	animation: shimmer 2s infinite linear;
+}

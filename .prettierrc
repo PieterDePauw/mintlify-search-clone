@@ -1,0 +1,24 @@
+{
+	"arrowParens": "always",
+	"bracketSameLine": false,
+	"bracketSpacing": true,
+	"embeddedLanguageFormatting": "auto",
+	"experimentalTernaries": true,
+	"jsxSingleQuote": false,
+	"plugins": ["prettier-plugin-tailwindcss", "prettier-plugin-packagejson"],
+	"printWidth": 220,
+	"proseWrap": "preserve",
+	"quoteProps": "preserve",
+	"semi": false,
+	"singleAttributePerLine": false,
+	"singleQuote": false,
+	"tabWidth": 4,
+	"trailingComma": "all",
+	"useTabs": true,
+	"tailwindFunctions": ["cn"],
+	"tailwindConfig": "./tailwind.config.ts",
+	"overrides": [
+		{ "files": "*.json", "options": { "parser": "json", "trailingComma": "none" } },
+		{ "files": "*.jsonc", "options": { "parser": "json", "trailingComma": "none" } }
+	]
+}
